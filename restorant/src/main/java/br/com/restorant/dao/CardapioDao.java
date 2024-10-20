@@ -3,13 +3,12 @@ package br.com.restorant.dao;
 import br.com.restorant.entity.Cardapio;
 
 import javax.persistence.EntityManager;
+import java.math.BigDecimal;
 import java.util.List;
 
 public class CardapioDao {
 
     private EntityManager em;
-
-    public CardapioDao() {}
 
     public CardapioDao(EntityManager em) {
         this.em = em;
@@ -22,6 +21,12 @@ public class CardapioDao {
 
     public Cardapio findById(final int id) {
         return em.find(Cardapio.class, id);
+    }
+
+    public List<Cardapio> consultarPorValor(final BigDecimal valorMin, final BigDecimal valorMax) {
+        String sql = "select c from Cardapio c where c.preco >= :valorMin and c.preco <= :valorMax";
+
+        return this.em.createQuery(sql, Cardapio.class).setParameter("valorMin", valorMin).setParameter("valorMax", valorMax).getResultList();
     }
 
     public List<Cardapio> consultarTodos() {
