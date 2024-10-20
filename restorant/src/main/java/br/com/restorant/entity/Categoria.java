@@ -4,17 +4,16 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "categorias")
-public class Categorias {
+public class Categoria {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String nome;
 
-    public Categorias() {}
+    public Categoria() {}
 
-    public Categorias(int id, String nome) {
-        this.id = id;
+    public Categoria( String nome) {
         this.nome = nome;
     }
 

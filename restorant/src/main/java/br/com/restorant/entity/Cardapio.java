@@ -17,7 +17,7 @@ public class Cardapio {
     private Boolean disponivel;
 
     @ManyToOne
-    private Categorias categoria;
+    private Categoria categoria;
 
     @Column(name = "data_de_registro")
     private LocalDateTime dataDeRegistro;
@@ -25,12 +25,13 @@ public class Cardapio {
     public Cardapio() {
     }
 
-    public Cardapio(String nome, String descricao, BigDecimal preco, Boolean disponivel) {
+    public Cardapio(String nome, String descricao, BigDecimal preco, Boolean disponivel, Categoria categoria) {
         this.nome = nome;
         this.descricao = descricao;
         this.preco = preco;
         this.disponivel = disponivel;
         this.dataDeRegistro = LocalDateTime.now();
+        this.categoria = categoria;
     }
 
     public Integer getId() {
@@ -61,6 +62,7 @@ public class Cardapio {
                 ", descricao='" + descricao + '\'' +
                 ", preco=" + preco +
                 ", dataDeRegistro=" + dataDeRegistro +
+                ", categoria=" + categoria +
                 '}';
     }
 }

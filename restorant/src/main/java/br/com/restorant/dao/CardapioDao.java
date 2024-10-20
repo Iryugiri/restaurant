@@ -3,6 +3,7 @@ package br.com.restorant.dao;
 import br.com.restorant.entity.Cardapio;
 
 import javax.persistence.EntityManager;
+import java.util.List;
 
 public class CardapioDao {
 
@@ -21,6 +22,11 @@ public class CardapioDao {
 
     public Cardapio findById(final int id) {
         return em.find(Cardapio.class, id);
+    }
+
+    public List<Cardapio> consultarTodos() {
+        String jpql = "SELECT c FROM Cardapio c";
+        return this.em.createQuery(jpql, Cardapio.class).getResultList();
     }
 
     public void atualizar(final Cardapio cardapio) {
