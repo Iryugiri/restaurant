@@ -24,14 +24,21 @@ public class CardapioDao {
     }
 
     public List<Cardapio> consultarPorValor(final BigDecimal valorMin, final BigDecimal valorMax) {
-        String sql = "select c from Cardapio c where c.preco >= :valorMin and c.preco <= :valorMax";
-
-        return this.em.createQuery(sql, Cardapio.class).setParameter("valorMin", valorMin).setParameter("valorMax", valorMax).getResultList();
+        try {
+            String sql = "select c from Cardapio c where c.preco >= :valorMin and c.preco <= :valorMax";
+            return this.em.createQuery(sql, Cardapio.class).setParameter("valorMin", valorMin).setParameter("valorMax", valorMax).getResultList();
+        } catch (Exception e) {
+            return null;
+        }
     }
 
     public List<Cardapio> consultarTodos() {
-        String jpql = "SELECT c FROM Cardapio c";
-        return this.em.createQuery(jpql, Cardapio.class).getResultList();
+        try {
+            String jpql = "SELECT c FROM Cardapio c";
+            return this.em.createQuery(jpql, Cardapio.class).getResultList();
+        } catch (Exception e) {
+            return null;
+        }
     }
 
     public void atualizar(final Cardapio cardapio) {
@@ -41,6 +48,12 @@ public class CardapioDao {
 
     public void deletar(final Cardapio cardapio) {
         em.remove(cardapio);
+    }
+
+    public Cardapio consultarPorNome(final String nome) {
+        String sql = "select c from Cardapio c where c.nome ILIKE :nome";
+
+        return this.em.createQuery(sql, Cardapio.class).setParameter("nome", nome).getSingleResult();
     }
 
 }

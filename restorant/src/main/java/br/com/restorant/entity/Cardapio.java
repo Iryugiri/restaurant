@@ -3,6 +3,7 @@ package br.com.restorant.entity;
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Table(name = "cardapio")
 @Entity
@@ -15,12 +16,14 @@ public class Cardapio {
     private String descricao;
     private BigDecimal preco;
     private Boolean disponivel;
+    @Column(name = "data_de_registro")
+    private LocalDateTime dataDeRegistro;
 
     @ManyToOne
     private Categoria categoria;
 
-    @Column(name = "data_de_registro")
-    private LocalDateTime dataDeRegistro;
+    @ManyToMany(mappedBy = "cardapioList")
+    private List<Ordem> ordem;
 
     public Cardapio() {
     }
